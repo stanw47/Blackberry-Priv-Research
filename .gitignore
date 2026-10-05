@@ -52,3 +52,6 @@ desktop.ini
 !recon/firehose/*.mbn
 !recon/firehose/*.elf
 !recon/firehose/*.bin
+
+# --- large local working trees (not committed) ---
+/recon/kernel/
