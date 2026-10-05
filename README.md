@@ -21,7 +21,7 @@
 
 | Field | Value |
 |---|---|
-| Model | BlackBerry Priv **STV100-1** |
+| Model | BlackBerry Priv **STV100-1** (NA / "venicena") |
 | Codename | `venicena` |
 | SoC | Qualcomm **MSM8992** (Snapdragon 808) |
 | OS / software | **Android 6.0.1** (`AAW068`), security patch 2017-10-05 |
@@ -52,10 +52,10 @@ The full boot gate has been decoded, and the most interesting residual lead — 
 
 ## Achieved
 
-- ✅ **Complete boot-gate map** — why no software unlock exists.
-- ✅ **Reported a real bug** — `fget`-without-`fput` ref leak in
+- **Complete boot-gate map** — why no software unlock exists.
+- **Reported a real bug** — `fget`-without-`fput` ref leak in
   `security/pathtrust/ioctl.c`.
-- ✅ **Widevine trustlet length-underflow** (`RewrapDeviceRSAKey`) — a TEE heap
+- **Widevine trustlet length-underflow** (`RewrapDeviceRSAKey`) — a TEE heap
   OOB-read primitive (needs mediaserver code-exec).
 
 ## In Progress
@@ -81,11 +81,16 @@ The full boot gate has been decoded, and the most interesting residual lead — 
 
 ## Community Activity
 
-- **Never rooted.** An **XDA bounty (~$1000) went unclaimed for ~8 years**;
-  community effort is audit + **hardware** (prototype bootloader swap).
-- **balika011's** guide covers the hardware (desolder) route for Priv/Passport.
-
----
+- **No root, ever.** An XDA bounty (~US$1000) went unclaimed for ~8 years; the
+  bootloader is strictly locked and the device never received Nougat.
+- **balika011** did run **LineageOS** on a Priv - but only by desoldering the
+  eMMC and fitting a chip with an unlocked bootloader (hardware only).
+- **Lasimeri/BBPriv-vibe-root** - open software-only root research on the
+  STV100-2: a GPU-DMA (KGSL SMMU) chain that stalled on leaking a physical
+  address, concluded reachable only via EDL.
+- **sykhangdha/blackberry-priv-survival** - a stock-usability guide (bootloop
+  mitigation, TLS root patching, legacy apps).
+- Hubs: CrackBerry ("Will someone unlock the PRIV bootloader?"), XDA.
 
 ## Repository layout
 
