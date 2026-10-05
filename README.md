@@ -1,78 +1,89 @@
-# BlackBerry Priv (STV100) — Research
+# BlackBerry Priv (STV100-1) — Research
 
-> Boot-chain, authboot/RTAS, TrustZone, and kernel-surface research on the
-> BlackBerry **Priv** (Android 6.0.1, MSM8992).
+> Boot-chain, `authboot`/RTAS, TrustZone, and kernel-surface research on the
+> BlackBerry **Priv** (Android 6.0.1, MSM8992) — the reference Android-BlackBerry
+> "legacy LK" device.
 >
 > Part of the **[Blackberry-Research](https://github.com/stanw47/Blackberry-Research)**
-> collection. Cross-device mechanisms live in the hub; this repo is Priv-specific.
+> collection · [Williamson Security Solutions](https://williamsonsecuritysolutions.com)
 
 ---
 
 ## Disclaimer
 
 > **Research aid, not a flashing guide.** Flashing/editing bootloader partitions
-> can **permanently brick** the device. For educational/defensive research on
-> devices the author owns. At your own risk.
+> can **permanently brick** the device. For educational / defensive research on a
+> device the author owns. **At your own risk.**
 
 ---
 
-## Status
+## Device Details
 
 | Field | Value |
 |---|---|
-| Device / model | BlackBerry Priv (STV100-1, "venicena") |
-| SoC | Qualcomm MSM8992 (Snapdragon 808) |
-| OS / build | Android 6.0.1 (`AAW068`, patch 2017-10-05) |
-| Bootloader | locked (`authboot` 1.3); boot/recovery flashable, bootchain signed |
-| Root | **not rooted** |
-| Access levels | L0 usb, L1 fastboot, L2 adb |
-| Status | audit-only; no public kernel 0-day; token/factory paths server-gated |
-
-**Current state:** The Priv is the reference **Android-BlackBerry** device. The
-entire authboot/RTAS command gate, the boot-image ECDSA gate, and the
-factory/token stack have been decoded. No software root exists; the remaining
-paths are a kernel 0-day, a TrustZone/Trustlet bug, or ISP.
+| Model | BlackBerry Priv **STV100-1** |
+| Codename | `venicena` |
+| SoC | Qualcomm **MSM8992** (Snapdragon 808) |
+| OS / software | **Android 6.0.1** (`AAW068`), security patch 2017-10-05 |
+| Current build | AAW068 (primary) |
+| Previous builds | AAF153 (pre-grsec; does **not** boot this unit) |
+| Carrier / unlock | carrier-unlocked; bootloader locked (`authboot` 1.3) |
+| SIM | single |
 
 ---
 
-## TL;DR
+## Current Status
 
-- **`authboot` gates everything:** every privileged fastboot command is checked
-  against an RTAS permission bitmap from an external BlackBerry service.
-- **Boot-image gate is ECDSA** (not RSA): 4 embedded keys; the aboot itself is
-  re-verified by SBL1 (so patching aboot bricks).
-- **Factory/token stack is present but disabled:** `inproductionflag=false`,
-  `stp_server` not running; token writes are root-gated.
-- **TrustZone lead:** a length-underflow heap OOB-read in the Widevine trustlet
-  (`RewrapDeviceRSAKey`) — but it needs code-exec in `mediaserver` first.
-- **No public Priv root** (8-year XDA bounty unclaimed); grsecurity/PaX blocks
-  the usual kernel bugs.
+The Priv is **not rooted**, and there is **no realistic software path**: the boot
+chain is server-authenticated (`authboot`/RTAS) with an **ECDSA** boot-image gate
+re-verified by SBL1, and the factory/token stack is disabled on shipped units.
+The full boot gate has been decoded, and the most interesting residual lead — a
+**Widevine trustlet underflow** — is blocked on code-exec in `mediaserver`.
 
 ---
 
-## Key findings
+## Completed
 
-*Numbered, stable — append only.*
+- **`authboot`/RTAS code decode** (the whole command-permission model).
+- **Boot-image ECDSA gate** + SBL1 re-verification (patching `aboot` bricks).
+- **BIDE / Pathtrust audit** (from GPL source) — no unprivileged escalation.
+- **Factory/token stack audit** — present but disabled (`inproductionflag=false`).
+- **TrustZone/Trustlet RE** — Widevine trustlet handlers audited.
 
-1. **Full authboot/RTAS decode** — command whitelist, permission types, and the
-   `bbauthtool`/RTAS path. → [`notes/session3-authfull-decode.md`](notes/session3-authfull-decode.md)
-2. **Boot-image ECDSA gate + SBL1 re-verify** — patched aboot bricks.
-   → [`notes/priv-research-log.txt`](notes/priv-research-log.txt) §3–4, §8
-3. **BIDE / Pathtrust audit** — no unprivileged escalation; reported an
-   `fget`-without-`fput` ref leak. → [`notes/bug-report-pathtrust-fput-leak.md`](notes/bug-report-pathtrust-fput-leak.md)
-4. **Widevine trustlet underflow** (`RewrapDeviceRSAKey`, cmd 0x0A) — TEE heap
-   OOB-read, blocked on mediaserver code-exec. → `notes/priv-research-log.txt` §18
-5. **Factory/token stack dead** — `inproductionflag` one-way; `TokenService`
-   write is signature-permission gated. → `notes/priv-research-log.txt` §5–6, §13–14
-6. **EDL requires a BlackBerry-signed firehose programmer** (none public for
-   MSM8992). → `notes/priv-research-log.txt` §15
+## Achieved
+
+- ✅ **Complete boot-gate map** — why no software unlock exists.
+- ✅ **Reported a real bug** — `fget`-without-`fput` ref leak in
+  `security/pathtrust/ioctl.c`.
+- ✅ **Widevine trustlet length-underflow** (`RewrapDeviceRSAKey`) — a TEE heap
+  OOB-read primitive (needs mediaserver code-exec).
+
+## In Progress
+
+- Audit-only. No active exploitation (the reachable primitives are gated).
+
+## Failed
+
+- **Bootloader unlock** — `authboot` denies; no forged authorization.
+- **Kernel LPE** — grsecurity/PaX blocks the usual classes; no public 3.10.84
+  exploit; DirtyCOW blocked; QuadRooter patched.
+- **Downgrade to pre-grsec** — the old kernel does not boot this hardware.
+- **EDL** — needs a **BlackBerry-signed MSM8992 firehose programmer** (none public).
+- **`oem set-factory-mode`** — `authboot command permission denied`.
+
+## Future Plans
+
+1. **TrustZone/Trustlet** path — needs code-exec in `mediaserver` first.
+2. **EDL** — only with a BlackBerry-signed programmer (unlikely).
+3. Otherwise: documentation value (the definitive "why it can't be rooted" map).
 
 ---
 
-## How to connect
+## Community Activity
 
-Android device: `adb` (USB `0fca:8042`), `fastboot` (`0fca:8040`). Bootloader is
-`authboot`-gated. See hub [`toolchain/`](https://github.com/stanw47/Blackberry-Research/tree/main/toolchain).
+- **Never rooted.** An **XDA bounty (~$1000) went unclaimed for ~8 years**;
+  community effort is audit + **hardware** (prototype bootloader swap).
+- **balika011's** guide covers the hardware (desolder) route for Priv/Passport.
 
 ---
 
@@ -81,32 +92,31 @@ Android device: `adb` (USB `0fca:8042`), `fastboot` (`0fca:8040`). Bootloader is
 | Path | Contents |
 |---|---|
 | `notes/` | the merged Priv research log + session notes + bug report |
-| `docs/` | write-ups (to be filled) |
 | `recon/trustlet/` | Widevine trustlet (`.mdt`/`.b0x`) + handler JSON |
-| `recon/firehose/` | public MSM8992 firehose programmers (ref) |
+| `recon/firehose/` | public MSM8992 firehose programmers (reference) |
 | `recon/sepolicy/` | Priv SEPolicy binary + parser |
-| `recon/tokenservice/` | `bb_tokenserviced` RE + token samples |
-| `recon/kernel/` | kernel symbol maps / source refs (**source not committed**) |
+| `recon/tokenservice/` | `bb_tokenserviced` RE + `bbts` disasm + tokenloader APK tree |
+| `recon/sdmmc-driver/`, `recon/qnx-mmcsd-headers/`, `recon/bb10mt-src/` | driver/tooling RE |
 | `devmaps/` | Priv device map (schema v1.0) |
-| `firmware/` | **not committed** — fetch instructions |
+| `firmware/`, `recon/kernel/` | **not committed** — fetch instructions |
 
 ---
 
 ## Related repos
 
 - **Hub:** [Blackberry-Research](https://github.com/stanw47/Blackberry-Research)
-- **KEYone:** [Blackberry-KeyOne-Research](https://github.com/stanw47/Blackberry-KeyOne-Research) (same legacy LK lane)
-- **KEY2:** [Blackberry-Key2-Research](https://github.com/stanw47/Blackberry-Key2-Research) (modern ABL lane)
+- **KEYone** (same legacy LK lane): [Blackberry-KeyOne-Research](https://github.com/stanw47/Blackberry-KeyOne-Research)
+- **KEY2** (modern ABL lane): [Blackberry-Key2-Research](https://github.com/stanw47/Blackberry-Key2-Research)
 
 ---
 
-## References
+## Citations & Acknowledgements
 
 | Source | URL | Relevance |
 |---|---|---|
-| alephsecurity EDL series | https://alephsecurity.com/2018/01/22/qualcomm-edl-1/ | Qualcomm EDL/firehose internals |
+| Aleph Research — EDL series | https://alephsecurity.com/2018/01/22/qualcomm-edl-1/ | Qualcomm EDL/firehose internals |
 | Christopher Wade — Breaking Mobile Bootloaders | https://www.qualcomm.com/.../qpss22-christopher-wade.pdf | ABL fastboot exploit |
-| balika011 Priv conversion | https://balika011.hu/blackberry/guides/passport/conversion.php | eMMC bootloader swap |
+| balika011 — Priv/Passport conversion | https://balika011.hu/blackberry/guides/passport/conversion.php | hardware unlock route |
 
 ---
 
