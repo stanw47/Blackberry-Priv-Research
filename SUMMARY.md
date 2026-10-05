@@ -4,7 +4,6 @@
 - **SoC:** MSM8992
 - **OS/build:** Android 6.0.1 (`AAW068`)
 - **Repo:** https://github.com/stanw47/Blackberry-Priv-Research
-- **Visibility:** private
 - **Status:** not rooted; authboot/RTAS gate + boot ECDSA gate fully decoded
 - **Headline:** full authboot/RTAS + Widevine-trustlet underflow analysis; no public root
 

@@ -23,7 +23,7 @@
 |---|---|
 | Model | BlackBerry Priv **STV100-1** (NA / "venicena") |
 | Codename | `venicena` |
-| SoC | Qualcomm **MSM8992** (Snapdragon 808) |
+| SoC | Qualcomm **MSM8992** (Snapdragon 808); `getvar product` reports **MSM8994** (unresolved discrepancy) |
 | OS / software | **Android 6.0.1** (`AAW068`), security patch 2017-10-05 |
 | Current build | AAW068 (primary) |
 | Previous builds | AAF153 (pre-grsec; does **not** boot this unit) |
@@ -86,8 +86,9 @@ The full boot gate has been decoded, and the most interesting residual lead — 
 - **balika011** did run **LineageOS** on a Priv - but only by desoldering the
   eMMC and fitting a chip with an unlocked bootloader (hardware only).
 - **Lasimeri/BBPriv-vibe-root** - open software-only root research on the
-  STV100-2: a GPU-DMA (KGSL SMMU) chain that stalled on leaking a physical
-  address, concluded reachable only via EDL.
+  STV100-2: a ~95% GPU-DMA (KGSL SMMU) chain, blocked because the SMMU register
+  bank is not reachable from GPU DMA (the ION/debugfs physical-address leak was
+  confirmed live on this unit); concluded reachable only via EDL.
 - **sykhangdha/blackberry-priv-survival** - a stock-usability guide (bootloop
   mitigation, TLS root patching, legacy apps).
 - Hubs: CrackBerry ("Will someone unlock the PRIV bootloader?"), XDA.
@@ -99,10 +100,9 @@ The full boot gate has been decoded, and the most interesting residual lead — 
 | `notes/` | the merged Priv research log + session notes + bug report |
 | `recon/trustlet/` | Widevine trustlet (`.mdt`/`.b0x`) + handler JSON |
 | `recon/firehose/` | public MSM8992 firehose programmers (reference) |
-| `recon/sepolicy/` | Priv SEPolicy binary + parser |
+| `recon/sepolicy/` | SEPolicy parsers (the `sepolicy_aaw068.bin` is gitignored — re-dump from the device) |
 | `recon/tokenservice/` | `bb_tokenserviced` RE + `bbts` disasm + tokenloader APK tree |
 | `recon/sdmmc-driver/`, `recon/qnx-mmcsd-headers/`, `recon/bb10mt-src/` | driver/tooling RE |
-| `devmaps/` | Priv device map (schema v1.0) |
 | `firmware/`, `recon/kernel/` | **not committed** — fetch instructions |
 
 ---
