@@ -47,3 +47,8 @@ desktop.ini
 # --- Priv-specific ---
 # BlackBerry GPL kernel source (re-downloadable; ~780 MB)
 /recon/kernel/
+
+# --- KEEP small essential research artifacts ---
+!recon/firehose/*.mbn
+!recon/firehose/*.elf
+!recon/firehose/*.bin
