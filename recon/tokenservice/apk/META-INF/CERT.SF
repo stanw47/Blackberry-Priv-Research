@@ -1,0 +1,49 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest: wrP5AsMath1DqaaPoUSiTcXNG2DqhXn/WXtaA/iabj8=
+Created-By: 1.0 (Android SignApk)
+
+Name: res/raw/stmportal_root.cer
+SHA-256-Digest: Z6K3G7MV5dUR4LYZj2JFsEYqSRzRB7m45nXXg3Cir6I=
+
+Name: res/raw/stm_portal_root_ext.cer
+SHA-256-Digest: aWGwyToMcN7/O+5iArAGMTOGZ7Gl6CYnJMy1GTxCdAQ=
+
+Name: res/drawable/tokenloader_icon_small.png
+SHA-256-Digest: NmKRCYGS44Ahj7BiIEelrzhyznI2nEdKr6eyrzBQ/Lc=
+
+Name: res/layout/display_token.xml
+SHA-256-Digest: KMRf1z3nujMZCQnI3GTbJRpwCRXvNM0SKFS9fWq9DYE=
+
+Name: resources.arsc
+SHA-256-Digest: cC4tW+N/lCSRWGkWzQT6Qjqj3ufGxBV3Nf854A73UEk=
+
+Name: classes.dex
+SHA-256-Digest: Vbk/Gx3AaBmohNOuNsP8T77gm7Lb3vtxpr+tJvH8FWk=
+
+Name: AndroidManifest.xml
+SHA-256-Digest: wz4qLjCcNkjBE/7HDUAgXDwWhHwv7tX2lauFvaEWUzw=
+
+Name: res/menu/menu_main.xml
+SHA-256-Digest: 0ijhwAta5IL9QfZdvs2TD2JI0gZNc+3RRJpWUZSgHpo=
+
+Name: res/mipmap-hdpi-v4/ic_launcher.png
+SHA-256-Digest: GATkL+PUnMcBiBMWcJIK6dEn/MD28g/ZGgjRlHxpPJo=
+
+Name: res/mipmap-mdpi-v4/ic_launcher.png
+SHA-256-Digest: bqAaEqd5MBp5Lb05re4LSF4ZP31dhcPkxTEtzuoZDU4=
+
+Name: res/mipmap-xhdpi-v4/ic_launcher.png
+SHA-256-Digest: F+rUkyV5lXvKwQMwuKeSuJE+KF5CpdBx2PBgT1cqByA=
+
+Name: res/mipmap-xxhdpi-v4/ic_launcher.png
+SHA-256-Digest: lH/fFGHRNIIC+alD4WrtIZWVm6GMfV4i9CasmgVFpbg=
+
+Name: res/layout/dialog_description.xml
+SHA-256-Digest: qhWHAHQV4DWJ6SoY2iCSB7zFVEbbL7UkxMbVUN0d4Dw=
+
+Name: res/layout/activity_main.xml
+SHA-256-Digest: EbzLpHfgmoW5gLD3EmR7p3NuzPwbSqoIbc41dPk10EI=
+
+Name: res/layout/about.xml
+SHA-256-Digest: lEqWUU7EPej5GAT7y0vOA+SqxnNYMDNMdDpv8MKs57o=
+

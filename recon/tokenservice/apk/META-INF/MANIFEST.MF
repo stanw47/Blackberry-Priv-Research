@@ -1,0 +1,48 @@
+Manifest-Version: 1.0
+Created-By: 1.7.0_151 (Oracle Corporation)
+
+Name: res/raw/stmportal_root.cer
+SHA-256-Digest: rlYlabAV7zpqJ+JAGsbWc1hzkJzvM4N+bcEyyiBrjbU=
+
+Name: res/raw/stm_portal_root_ext.cer
+SHA-256-Digest: Tz4cxMZUHFSUt6ztbautOx89VYO3cuLGMJBbwxPkZHM=
+
+Name: res/drawable/tokenloader_icon_small.png
+SHA-256-Digest: e8jmpo486r+X6cIafWDuczPKu1+Hr6OVKBiRfA2UVms=
+
+Name: res/layout/display_token.xml
+SHA-256-Digest: dLktpy8m4zFYyQ/drMMRG7tWa5L9ySewUHO0aQyG2po=
+
+Name: resources.arsc
+SHA-256-Digest: LdOBwDZ4MQbafMlbk0fWem3lLCK0iyg6EZAex+EiBCA=
+
+Name: classes.dex
+SHA-256-Digest: PvNZgx9tevfT3pioaFdEnO9GZS9V3OXAiztSi55ksLo=
+
+Name: AndroidManifest.xml
+SHA-256-Digest: CJvDHIUWXwcU2d9yRN4plMeWt+A8+uqp2BsV/ZjdKEs=
+
+Name: res/menu/menu_main.xml
+SHA-256-Digest: pAZQWtUzoSxnS6yti9cm6mv5+5S3BjLLvuaNBwuap9s=
+
+Name: res/mipmap-hdpi-v4/ic_launcher.png
+SHA-256-Digest: q89cbwIXF8gLFnS6HxdiPv5d/eZ+8trQFT1unvBbPfs=
+
+Name: res/mipmap-mdpi-v4/ic_launcher.png
+SHA-256-Digest: q89cbwIXF8gLFnS6HxdiPv5d/eZ+8trQFT1unvBbPfs=
+
+Name: res/mipmap-xhdpi-v4/ic_launcher.png
+SHA-256-Digest: q89cbwIXF8gLFnS6HxdiPv5d/eZ+8trQFT1unvBbPfs=
+
+Name: res/mipmap-xxhdpi-v4/ic_launcher.png
+SHA-256-Digest: q89cbwIXF8gLFnS6HxdiPv5d/eZ+8trQFT1unvBbPfs=
+
+Name: res/layout/dialog_description.xml
+SHA-256-Digest: +B4JO1Z+nd+u0YLBoxihqsIhB16Wn+p72yLwhZsY42s=
+
+Name: res/layout/activity_main.xml
+SHA-256-Digest: kV3bB0ZO+1lTEwbvJBCkJslw/DvHjj/drh7FNIgrGyE=
+
+Name: res/layout/about.xml
+SHA-256-Digest: tTR7rDx4053pQOsJQ6xRRNVWFLSJ9xX/E/0jMOm6/IQ=
+
